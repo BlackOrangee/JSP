@@ -7,8 +7,8 @@ import java.util.List;
 
 public class GetUserCommand implements Command {
     @Override
-    public List<String> execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter("id");
-        return List.of("id: " + id);
+        return "id: " + id;
     }
 }

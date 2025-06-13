@@ -8,6 +8,13 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<form action="controller" method="post">
+    <input type="hidden" name="command" value="AddUserCommand">
+    <input type="text" name="name">
+    <input type="text" name="email">
+    <input type="submit" value="Submit">
+</form>
+<h1>${sessionScope.get("user").name}'s</h1>
+<h1>${sessionScope.get("user").email}'s</h1>
 </body>
 </html>

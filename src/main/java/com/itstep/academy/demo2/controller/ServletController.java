@@ -13,16 +13,24 @@ import java.util.List;
 @WebServlet(value = "/controller")
 public class ServletController extends HttpServlet {
 
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String command = (String) req.getParameter("command");
+            String result = CommandContainer.getCommand(command).execute(req, resp);
+            req.getRequestDispatcher(result).forward(req, resp);
+        } catch (Exception e) {
+            e.printStackTrace(); // todo: redirect to error page with error message
+        }
+
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String command = (String)req.getParameter("command");
-        List<String> result = CommandContainer.getCommand(command).execute(req, resp);
-        resp.getWriter().println(result.get(0));
+        processRequest(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        processRequest(req, resp);
     }
 }
